@@ -1,0 +1,47 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Montar site enxuto (só o necessário para publicar)
+        run: |
+          mkdir -p _site
+          cp index.html _site/
+          [ -f .nojekyll ] && cp .nojekyll _site/ || touch _site/.nojekyll
+          # Se um dia quiser publicar o catálogo opcional, descomente a linha abaixo:
+          # [ -f bancos-catalogo.js ] && cp bancos-catalogo.js _site/ || true
+
+      - name: Configurar Pages
+        uses: actions/configure-pages@v5
+
+      - name: Enviar artefato (apenas a pasta _site)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "_site"
+
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          timeout: 1200000   # 20 min (folga; com o site enxuto deve concluir em segundos)
