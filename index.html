@@ -182,6 +182,30 @@
   .summary .v.ok{color:var(--green-dk)}
   .summary .v.warn{color:var(--amber)}
   .summary .v.i{color:#3a4da0}
+  /* resumo grudento (fixa abaixo do cabeçalho ao rolar) */
+  .summary:empty{display:none}
+  .summary{position:sticky;top:var(--header-h,0);z-index:30}
+  /* navegação pelos erros (na barra de validação) */
+  .errnav{display:inline-flex;align-items:center;gap:6px}
+  .en-btn{border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;
+    width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-size:11px;padding:0}
+  .en-btn:hover{border-color:var(--muted)}
+  .en-lbl{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:70px;text-align:center}
+  /* botões de copiar */
+  .rawtools{display:flex;justify-content:flex-end;padding:6px 16px 0}
+  .cp-raw{border:1px solid var(--line);background:var(--paper);color:var(--muted);cursor:pointer;
+    border-radius:6px;font-size:11px;padding:3px 9px;line-height:1}
+  .cp-raw:hover{color:var(--ink);border-color:var(--muted)}
+  .val .cp{opacity:0;border:1px solid var(--line);background:var(--paper);color:var(--muted);cursor:pointer;
+    border-radius:5px;font-size:11px;padding:1px 6px;margin-left:8px;vertical-align:middle;transition:opacity .12s}
+  tr:hover .val .cp{opacity:1}
+  .val .cp:hover{color:var(--ink);border-color:var(--muted)}
+  .cp.ok,.cp-raw.ok{color:var(--green-dk);border-color:var(--green-dk)}
+  /* toast de confirmação */
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(8px);
+    background:var(--ink);color:var(--paper);padding:9px 16px;border-radius:8px;font-size:13px;font-weight:600;
+    z-index:80;opacity:0;pointer-events:none;transition:opacity .18s, transform .18s;box-shadow:0 4px 14px rgba(0,0,0,.28)}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
   .rec{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:16px;overflow:hidden}
   .rec.bad{border-color:#e4b3b3}
@@ -333,6 +357,59 @@
     color:var(--green-dk);display:grid;place-items:center;font-size:26px;font-weight:700}
   .empty h2{margin:0 0 8px;font-size:18px}
   .empty p{margin:0 auto;max-width:460px;color:var(--muted);font-size:13.5px;line-height:1.6}
+  .empty .empty-ic svg{width:26px;height:26px;display:block}
+  .empty-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+  /* foco visível consistente (acessibilidade / teclado) */
+  a:focus-visible,button:focus-visible,label:focus-visible,[tabindex]:focus-visible,.rec-head:focus-visible,.rf-chip:focus-visible{
+    outline:2px solid var(--green);outline-offset:2px;border-radius:6px}
+  .rec-head{outline-offset:-2px}
+  /* impressão: só a inspeção, sem a interface */
+  /* ===== responsivo (celular / telas estreitas) ===== */
+  @media (max-width:680px){
+    .wrap{padding:12px}
+    header{padding:12px 14px;gap:8px 10px}
+    header h1{font-size:15px}
+    header .sub{display:none}                 /* subtítulo do banco: esconde p/ desafogar */
+    header .file{margin-left:0;flex:1 1 auto;font-size:11.5px}
+    header .theme-btn{margin-left:auto}
+    .summary{position:static}                 /* sem grudar no mobile (evita bloco alto) */
+    .summary .cell{min-width:0;flex:1 1 44%;padding:11px 12px;border-right:0;border-bottom:1px solid var(--line)}
+    .summary .v{font-size:18px}
+    .loader{gap:8px}
+    textarea{min-width:0;min-height:120px}
+    .btns{flex-direction:row;flex-wrap:wrap;width:100%}
+    .btns .b-primary,.btns .b-ghost{flex:1 1 auto;text-align:center;min-height:38px;display:inline-flex;align-items:center;justify-content:center}
+    .rec-head{gap:8px;padding:11px 12px}
+    .rec-meta{font-size:10.5px}
+    table{font-size:12px}
+    thead th{padding:6px 8px}
+    tbody td{padding:6px 8px;white-space:normal}
+    td.pos,td.fmt{white-space:nowrap}
+    .val .raw-v{white-space:pre-wrap;word-break:break-all}
+    .val .cp{opacity:1}                        /* sem hover no toque: botão de copiar sempre visível */
+    .modal{padding:16px 8px}
+    .modal .m-head{padding:13px 15px}
+    .modal .m-body{padding:14px 15px}
+    .rec-sub{gap:8px 14px}
+    .toast{left:12px;right:12px;transform:translateY(8px);text-align:center}
+    .toast.show{transform:translateY(0)}
+  }
+  @media (max-width:400px){
+    header h1{font-size:14px}
+    .summary .cell{flex:1 1 100%}
+    .rec-meta{display:none}
+  }
+  @media print{
+    header,aside,#scrim,.loader,.vbar,.errnav,.legend,footer,.theme-btn,.rec-search-bar,#retFilter,
+    .cp-raw,.rawtools,.val .cp,.toast,.modal,#modeHint,#bankPrompt,.empty-actions,.chev{display:none!important}
+    body,.rec,.summary,.vpanel,.rec-doc,.rawbox,.raw,.ruler,table,td,th,.wrap{background:#fff!important;color:#000!important}
+    .summary{position:static!important;box-shadow:none!important;border:1px solid #ccc!important}
+    .rec{break-inside:avoid;border:1px solid #ccc!important;box-shadow:none!important}
+    .rec.collapsed .rec-body{display:block!important}
+    .rawbox{overflow:visible!important}
+    .raw,.ruler{white-space:pre-wrap!important;word-break:break-all}
+    .rec-flag.e,.oc-badge.rejeitado{color:#000!important;border:1px solid #000}
+  }
   .legend span{display:inline-flex;align-items:center;gap:6px}
   .sw{width:12px;height:12px;border-radius:3px;display:inline-block}
   footer{color:var(--muted);font-size:12px;text-align:center;padding:10px 0 30px}
@@ -543,6 +620,11 @@
   <div class="vbar">
     <div class="toggle" id="vtoggle" onclick="toggleVMode()"><span class="track"><span class="knob"></span></span>Modo validação</div>
     <div class="vcount" id="vcount"></div>
+    <div class="errnav" id="errNav" hidden>
+      <button class="en-btn" id="errPrev" onclick="gotoErr(-1)" title="Erro anterior (Alt+↑)" aria-label="Erro anterior">◀</button>
+      <span class="en-lbl" id="errLbl">erros</span>
+      <button class="en-btn" id="errNext" onclick="gotoErr(1)" title="Próximo erro (Alt+↓)" aria-label="Próximo erro">▶</button>
+    </div>
     <button class="b-ghost" style="margin-left:auto" onclick="exportCSV()">Exportar CSV</button>
     <button class="b-ghost" onclick="generatePDF()">Exportar PDF</button>
   </div>
@@ -2578,10 +2660,13 @@ function showEmptyState(){
   document.getElementById('vpanel').innerHTML='';
   document.getElementById('records').innerHTML=
     '<div class="empty">'+
-    '<div class="empty-ic">↥</div>'+
-    '<h2>Nenhum arquivo carregado</h2>'+
-    '<p>Cole o conteúdo de um arquivo <b>.REM</b> na caixa acima e clique em <b>Analisar</b>, '+
-    'ou use <b>Abrir</b>. Os dados são processados localmente no seu navegador — nada é enviado para fora.</p>'+
+    '<div class="empty-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 20h16"/></svg></div>'+
+    '<h2>Comece carregando um arquivo CNAB 240</h2>'+
+    '<p>Arraste o arquivo <b>.REM</b>/<b>.RET</b> para a área acima, cole o conteúdo (240 colunas por linha) e clique em <b>Analisar</b>, ou abra pelo seletor. Tudo é processado <b>localmente no seu navegador</b> — nada é enviado para fora.</p>'+
+    '<div class="empty-actions">'+
+      '<button class="b-primary" onclick="document.getElementById(\'filepick\').click()">Abrir arquivo…</button>'+
+      '<button class="b-ghost" onclick="loadSample(\'748\')">Carregar exemplo</button>'+
+    '</div>'+
     '</div>';
 }
 function buildRuler(len){
@@ -3256,7 +3341,7 @@ function renderRecord(r){
       <td>${esc(f.name)}</td>
       <td class="pos mono">${String(f.de).padStart(3,'0')}–${String(f.ate).padStart(3,'0')}</td>
       <td class="fmt"><span class="tag ${isNum?'n':'x'}">${esc(f.f)}</span></td>
-      <td class="val"><span class="raw-v mono ${empty?'empty':''}">${empty?'(branco)':esc(showRaw)}</span>${ip?`<span class="interp">${esc(ip.txt)}</span>`:''}${vmsg}</td>
+      <td class="val"><span class="raw-v mono ${empty?'empty':''}">${empty?'(branco)':esc(showRaw)}</span>${ip?`<span class="interp">${esc(ip.txt)}</span>`:''}${vmsg}${empty?'':`<button class="cp" data-raw="${esc(raw)}" onclick="event.stopPropagation();copyField(this)" title="Copiar conteúdo do campo">⧉</button>`}</td>
     </tr>`;
   }).join('') : `<tr><td colspan="4" style="color:var(--muted)">Sem leiaute de referência para este segmento — exibindo apenas a linha bruta acima.</td></tr>`;
 
@@ -3304,7 +3389,7 @@ function renderRecord(r){
     .filter(Boolean).join(' '));
 
   return `<div class="rec${collapsed}" id="rec${r.idx}" data-retstatus="${retSt}" data-search="${esc(searchText)}">
-    <div class="rec-head" onclick="toggle(${r.idx})">
+    <div class="rec-head" role="button" tabindex="0" aria-expanded="${collapsed?'false':'true'}" onclick="toggle(${r.idx})" onkeydown="recKey(event,${r.idx})">
       <span class="badge ${bclass}">${badge}</span>
       ${docChip}
       <span class="rec-title">${esc(title)}</span>
@@ -3317,6 +3402,7 @@ function renderRecord(r){
       ${extNote}
       ${retBlock}
       ${recMsgs}
+      <div class="rawtools"><button class="cp-raw" onclick="copyLine(${r.idx},this)" title="Copiar a linha completa (240 colunas)">⧉ copiar linha</button></div>
       <div class="rawbox">
         <div class="ruler mono">${ruler}</div>
         <div class="raw mono" id="raw${r.idx}">${esc(r.line)}</div>
@@ -3326,7 +3412,65 @@ function renderRecord(r){
     </div>
   </div>`;
 }
-function toggle(i){ document.getElementById('rec'+i).classList.toggle('collapsed'); }
+function toggle(i){
+  const card=document.getElementById('rec'+i);
+  const collapsed=card.classList.toggle('collapsed');
+  const head=card.querySelector('.rec-head');
+  if(head) head.setAttribute('aria-expanded', collapsed?'false':'true');
+}
+function recKey(e,i){ if(e.key==='Enter'||e.key===' '||e.key==='Spacebar'){ e.preventDefault(); toggle(i); } }
+
+/* ---------- copiar (linha bruta / campo) + toast ---------- */
+function copyLine(i,btn){ const el=document.getElementById('raw'+i); copyText(el?el.textContent:'', btn); }
+function copyField(btn){ copyText(btn.dataset.raw||'', btn); }
+function copyText(text, btn){
+  const done=()=>{ if(btn){ btn.classList.add('ok'); setTimeout(()=>btn.classList.remove('ok'),900); } showToast('Copiado'); };
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done, ()=>copyFallback(text,done));
+    } else copyFallback(text,done);
+  }catch(e){ copyFallback(text,done); }
+}
+function copyFallback(text,done){
+  const ta=document.createElement('textarea'); ta.value=text;
+  ta.style.position='fixed'; ta.style.top='-1000px'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try{ document.execCommand('copy'); done&&done(); }catch(e){ showToast('Não foi possível copiar'); }
+  ta.remove();
+}
+let TOAST_T=null;
+function showToast(msg){
+  let t=document.getElementById('toast');
+  if(!t){ t=document.createElement('div'); t.id='toast'; t.className='toast'; document.body.appendChild(t); }
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(TOAST_T); TOAST_T=setTimeout(()=>t.classList.remove('show'),1500);
+}
+
+/* ---------- navegação pelos erros ---------- */
+let ERR_NAV=[], ERR_IDX=-1;
+function updateErrNav(){
+  const box=document.getElementById('errNav'), lbl=document.getElementById('errLbl');
+  if(!box) return;
+  const n=ERR_NAV.length;
+  box.hidden = n===0;
+  if(!lbl) return;
+  if(n===0){ lbl.textContent=''; return; }
+  lbl.textContent = ERR_IDX<0 ? (n+' erro'+(n>1?'s':'')) : ('erro '+(ERR_IDX+1)+'/'+n);
+}
+function gotoErr(dir){
+  const n=ERR_NAV.length; if(!n) return;
+  ERR_IDX = (ERR_IDX + dir + n) % n;
+  const it=ERR_NAV[ERR_IDX];
+  focusIssue(it.rec, it.de||0, it.ate||0);
+  updateErrNav();
+}
+
+/* ---------- altura do cabeçalho (para o resumo grudento) ---------- */
+function syncHeaderH(){
+  const h=document.querySelector('header');
+  if(h) document.documentElement.style.setProperty('--header-h', h.offsetHeight+'px');
+}
+
 
 /* ---------- UI do modo validação ---------- */
 function toggleVMode(){
@@ -3337,13 +3481,15 @@ function toggleVMode(){
 function refreshValidationUI(){
   const vc=document.getElementById('vcount'), panel=document.getElementById('vpanel');
   // Modo Retorno: sem validação de campos — mostra apenas o status informado pelo banco.
-  if(IS_RETORNO){ renderRetornoPanel(vc,panel); return; }
+  if(IS_RETORNO){ ERR_NAV=[]; ERR_IDX=-1; updateErrNav(); renderRetornoPanel(vc,panel); return; }
   let errs=[],warns=[];
   ISSUES.forEach((ri,idx)=>{
     ri.rec.forEach(x=>(x.sev==='error'?errs:warns).push({idx,loc:'Reg '+(idx+1),msg:x.msg}));
     Object.values(ri.fields).forEach(x=>(x.sev==='error'?errs:warns).push(
       {idx,de:x.de,ate:x.ate,loc:'Reg '+(idx+1)+' · '+String(x.de).padStart(3,'0')+'–'+String(x.ate).padStart(3,'0'),msg:x.msg}));
   });
+  ERR_NAV = errs.map(e=>({rec:e.idx, de:e.de||0, ate:e.ate||0}));
+  ERR_IDX = -1; updateErrNav();
   // segmentos fora do manual do banco (não validados)
   const bankName = BANKS[activeBankCode] ? BANKS[activeBankCode].nome : ('banco '+activeBankCode);
   const infos = DATA.filter(r=>!r.inManual).map(r=>({
@@ -4292,12 +4438,21 @@ function runBarcode(){
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){ closeBarcodeTool(); closeEditor(); closeBanksTool(); closeDrawer(); }
   if((e.ctrlKey||e.metaKey)&&e.key==='Enter'&&document.getElementById('bcModal').classList.contains('open')) runBarcode();
+  // Alt+↓ / Alt+↑ navegam pelos erros (fora de campos de digitação)
+  if(e.altKey && (e.key==='ArrowDown'||e.key==='ArrowUp')){
+    const tag=(e.target&&e.target.tagName||'').toLowerCase();
+    if(tag==='input'||tag==='textarea') return;
+    if(ERR_NAV.length){ e.preventDefault(); gotoErr(e.key==='ArrowDown'?1:-1); }
+  }
 });
 
 /* ---------- carga inicial: tela vazia, modo validação ligado ---------- */
 document.body.classList.add('vmode');
 document.getElementById('vtoggle').classList.add('on');
 applyTheme();               // sincroniza os controles de tema com a preferência salva
+syncHeaderH();              // mede o cabeçalho para o resumo grudento
+window.addEventListener('resize', syncHeaderH);
+window.addEventListener('load', syncHeaderH);
 showEmptyState();
 </script>
 </body>
