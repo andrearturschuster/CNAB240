@@ -338,11 +338,84 @@
   footer{color:var(--muted);font-size:12px;text-align:center;padding:10px 0 30px}
   .err{background:var(--amber-bg);border:1px solid #ecd9ad;color:#7a5510;padding:12px 14px;
     border-radius:10px;margin-bottom:16px;font-size:13px}
+
+  /* ============ TEMA ESCURO (camada aditiva; o claro fica inalterado) ============ */
+  :root{color-scheme:light}
+  [data-theme="light"]{color-scheme:light}
+  [data-theme="dark"]{
+    color-scheme:dark;
+    --green:#3fa552; --green-dk:#79cf8d; --green-soft:#18271c;
+    --ink:#e7ede9; --muted:#93a29a; --line:#2b352f; --paper:#0f1512;
+    --num:#7fb0ff; --num-bg:#152233; --alfa:#c6a9ec; --alfa-bg:#221a33;
+    --filler:#7c877f; --filler-bg:#171d19; --amber:#e0a94a; --amber-bg:#2a2113;
+    --hl:#4a3f18; --hl-bd:#c79a1a;
+  }
+  [data-theme="dark"] header{background:#0b0f0c}
+  [data-theme="dark"] header .logo.has-svg,[data-theme="dark"] .bk-ic{background:#eef2ef}
+  [data-theme="dark"] .drawer{background:#141a17}
+  [data-theme="dark"] .drawer .d-head{background:#0b0f0c}
+  [data-theme="dark"] textarea,[data-theme="dark"] input,[data-theme="dark"] .bc-in{background:#141a17;color:var(--ink)}
+  [data-theme="dark"] .rec-search{background:transparent}
+  [data-theme="dark"] .ed-fld input.num{background:var(--num-bg);color:var(--num)}
+  [data-theme="dark"] .ed-fld input.bad{background:#2a1512;border-color:#c0392b;color:#f0a89f}
+  [data-theme="dark"] .b-ghost{background:#171e1a;color:var(--ink)}
+  [data-theme="dark"] .modal .card{background:#141a17}
+  [data-theme="dark"] .summary,[data-theme="dark"] .rec,[data-theme="dark"] .vpanel,[data-theme="dark"] .empty{background:#141a17}
+  [data-theme="dark"] .rf-chip,[data-theme="dark"] .rec-search-bar{background:#171e1a}
+  [data-theme="dark"] .rec-doc{background:#1e2622}
+  [data-theme="dark"] tbody td,[data-theme="dark"] .vpanel li{border-bottom-color:var(--line)}
+  [data-theme="dark"] td.val .raw-v{background:#1b221d;border-color:var(--line)}
+  [data-theme="dark"] .toggle .track{background:#333d37}
+  [data-theme="dark"] .toggle .knob{background:#e7ede9}
+  [data-theme="dark"] .mode-bar.inspect{border-color:#2c5236}
+  [data-theme="dark"] .mode-bar.retorno{background:#16203a;border-color:#2b3a63}
+  [data-theme="dark"] .mode-bar.retorno b{color:#9db4e6}
+  [data-theme="dark"] .mode-hint{border-color:#5a4a1e;color:#e0c07a}
+  [data-theme="dark"] .mode-hint.tip{background:#16203a;border-color:#2b3a63;color:#9db4e6}
+  [data-theme="dark"] .bank-prompt{border-color:#5a4a1e;color:#e0c07a}
+  [data-theme="dark"] .bank-prompt.on{background:#16203a;border-color:#2b3a63;color:#9db4e6}
+  [data-theme="dark"] .bank-prompt .lnk{color:#9db4e6}
+  [data-theme="dark"] .err{border-color:#5a4a1e;color:#e0c07a}
+  [data-theme="dark"] .rec-ext{background:#16203a;color:#9db4e6;border-color:#2b3a63}
+  [data-theme="dark"] .rec-note{background:#16203a;border-color:#2b3a63;color:#9db4e6}
+  [data-theme="dark"] .rec-note b{color:#c2d2f2}
+  [data-theme="dark"] .ret-note{background:#1b221d}
+  [data-theme="dark"] .ret-note.pago{border-color:#2c5236}
+  [data-theme="dark"] .ret-note.aceito{background:#16203a;border-color:#2b3a63}
+  [data-theme="dark"] .ret-note.rejeitado{background:#2a1512;border-color:#5a2a24}
+  [data-theme="dark"] .ret-note.info{background:#1b221d;border-color:var(--line)}
+  [data-theme="dark"] .badge.t0,[data-theme="dark"] .badge.t1{background:#16203a;color:#9db4e6}
+  [data-theme="dark"] .badge.t5,[data-theme="dark"] .badge.t9{background:#221a33;color:#c6a9ec}
+  [data-theme="dark"] .oc-badge.pago,[data-theme="dark"] .rec-ext.oc-pago{background:#17311e;color:#79cf8d;border-color:#2c5236}
+  [data-theme="dark"] .oc-badge.aceito,[data-theme="dark"] .rec-ext.oc-aceito{background:#16203a;color:#9db4e6;border-color:#2b3a63}
+  [data-theme="dark"] .oc-badge.rejeitado,[data-theme="dark"] .rec-ext.oc-rejeitado{background:#2a1512;color:#f0a89f;border-color:#5a2a24}
+  [data-theme="dark"] .oc-badge.info,[data-theme="dark"] .rec-ext.oc-info{background:#242c27;color:var(--muted)}
+  [data-theme="dark"] .rf-chip.active.pago{background:#17311e;color:#79cf8d}
+  [data-theme="dark"] .rf-chip.active.aceito{background:#16203a;color:#9db4e6;box-shadow:0 0 0 2px #3a4da0 inset}
+  [data-theme="dark"] .rf-chip.active.rejeitado{background:#2a1512;color:#f0a89f}
+  [data-theme="dark"] .rf-chip.active.info{background:#242c27;color:var(--muted)}
+  [data-theme="dark"] .summary .v.i,[data-theme="dark"] .vmsg.info,[data-theme="dark"] .vcount b.i,[data-theme="dark"] .vpanel .dot.i{color:#9db4e6}
+  [data-theme="dark"] .vpanel .ph.info{background:#16203a;color:#9db4e6}
+  [data-theme="dark"] .vpanel .ph.has{background:#2a1512;color:#f0a89f}
+  [data-theme="dark"] .vmsg.error,[data-theme="dark"] .vcount b.e{color:#f0776b}
+  [data-theme="dark"] .bc-badge.bad{background:#2a1512;color:#f0a89f}
+  [data-theme="dark"] body.vmode tr.fld-error{background:#241210}
+  [data-theme="dark"] body.vmode tr.fld-error .raw-v{border-color:#5a2a24;background:#2a1512}
+  [data-theme="dark"] body.vmode tr.fld-warn{background:#241d10}
+  [data-theme="dark"] .rec-flag.e{background:#2a1512;color:#f0a89f}
+  [data-theme="dark"] .rec-flag.w{background:#241d10;color:var(--amber)}
+  [data-theme="dark"] .loader.dragover::after{background:rgba(23,39,27,.92)}
+  /* controles de tema */
+  .theme-btn{width:38px;height:38px;border-radius:9px;background:rgba(255,255,255,.14);border:0;cursor:pointer;
+    display:grid;place-items:center;flex:0 0 auto;padding:0;font-size:17px;line-height:1}
+  .theme-btn:hover{background:rgba(255,255,255,.24)}
+  .theme-opt .ic{font-family:inherit;color:inherit;letter-spacing:normal}
 </style>
 <!-- Catálogo completo de bancos/ícones (opcional): se presente ao lado do index.html,
      expõe window.BANCOS_CATALOGO com TODOS os 285 ícones para uso futuro. O app funciona
      normalmente mesmo sem este arquivo (diretório e ícones essenciais já vêm embutidos). -->
 <script src="bancos-catalogo.js" onerror="/* catálogo opcional ausente — segue sem ele */"></script>
+<script>/* aplica o tema salvo antes de renderizar (evita flash) */try{var _m=localStorage.getItem('cnab-theme')||'system';var _d=_m==='dark'||(_m==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',_d?'dark':'light');}catch(e){}</script>
 </head>
 <body>
 <header>
@@ -352,6 +425,7 @@
     <h1>Inspetor CNAB 240 <span class="sub" id="bankSub">multi-banco · detecção automática (748 · 341 · 001 · 756) · diretório de bancos no menu</span></h1>
   </div>
   <div class="file" id="fileLabel">nenhum arquivo carregado</div>
+  <button class="theme-btn" id="themeBtn" onclick="cycleTheme()" title="Tema" aria-label="Alternar tema">🖥️</button>
 </header>
 
 <!-- ===== menu lateral retrátil ===== -->
@@ -378,6 +452,14 @@
     </div>
     <div class="d-group">
       <button class="d-top" onclick="openBanksTool()"><span>🏦</span>Bancos</button>
+    </div>
+    <div class="d-group open" id="grpTheme">
+      <button class="d-top" onclick="toggleGroup('grpTheme')"><span>🎨</span>Tema<span class="chev">›</span></button>
+      <div class="d-sub">
+        <button class="theme-opt" data-mode="light" onclick="setTheme('light')"><span class="ic">☀</span>Claro</button>
+        <button class="theme-opt" data-mode="dark" onclick="setTheme('dark')"><span class="ic">🌙</span>Escuro</button>
+        <button class="theme-opt" data-mode="system" onclick="setTheme('system')"><span class="ic">🖥</span>Padrão do sistema</button>
+      </div>
     </div>
   </nav>
 </aside>
@@ -3915,6 +3997,27 @@ function openDrawer(){document.getElementById('drawer').classList.add('open');do
 function closeDrawer(){document.getElementById('drawer').classList.remove('open');document.getElementById('scrim').classList.remove('open');document.getElementById('drawer').setAttribute('aria-hidden','true');}
 function toggleGroup(id){document.getElementById(id).classList.toggle('open');}
 
+/* ---------- tema: claro / escuro / padrão do sistema ---------- */
+const THEME_KEY='cnab-theme';
+function getThemeMode(){ try{ return localStorage.getItem(THEME_KEY)||'system'; }catch(e){ return 'system'; } }
+function resolveTheme(mode){
+  if(mode==='system'){ return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+  return mode;
+}
+function applyTheme(){
+  const mode=getThemeMode();
+  document.documentElement.setAttribute('data-theme', resolveTheme(mode));
+  // reflete o modo escolhido nos controles (menu + botão do cabeçalho)
+  document.querySelectorAll('.theme-opt').forEach(b=>b.classList.toggle('active', b.dataset.mode===mode));
+  const tb=document.getElementById('themeBtn');
+  if(tb){ const ic={light:'☀️',dark:'🌙',system:'🖥️'}, lb={light:'Claro',dark:'Escuro',system:'Padrão do sistema'};
+    tb.textContent=ic[mode]||'🖥️'; tb.title='Tema: '+(lb[mode]||'Sistema')+' — clique para alternar'; tb.setAttribute('aria-label','Tema: '+(lb[mode]||'Sistema')); }
+}
+function setTheme(mode){ try{ localStorage.setItem(THEME_KEY,mode); }catch(e){} applyTheme(); }
+function cycleTheme(){ const order=['light','dark','system']; setTheme(order[(order.indexOf(getThemeMode())+1)%order.length]); }
+// quando em "padrão do sistema", acompanha a mudança do SO em tempo real
+if(window.matchMedia){ try{ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{ if(getThemeMode()==='system') applyTheme(); }); }catch(e){} }
+
 /* alterna o modo de inspeção (remessa x retorno) escolhido no menu Ferramentas */
 function setView(v){
   VIEW=v;
@@ -4190,6 +4293,7 @@ document.addEventListener('keydown',e=>{
 /* ---------- carga inicial: tela vazia, modo validação ligado ---------- */
 document.body.classList.add('vmode');
 document.getElementById('vtoggle').classList.add('on');
+applyTheme();               // sincroniza os controles de tema com a preferência salva
 showEmptyState();
 </script>
 </body>
