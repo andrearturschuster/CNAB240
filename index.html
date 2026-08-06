@@ -18,7 +18,7 @@
     font-size:14px;line-height:1.5}
   .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace}
 
-  header{background:var(--ink);color:#fff;padding:18px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  header{background:var(--ink);color:#fff;padding:18px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:40}
   header .logo{width:30px;height:30px;border-radius:8px;background:var(--green);
     display:grid;place-items:center;font-weight:800;color:#fff;font-size:13px}
   header .logo.has-svg{background:#fff;padding:3px}
@@ -4007,11 +4007,15 @@ function resolveTheme(mode){
 function applyTheme(){
   const mode=getThemeMode();
   document.documentElement.setAttribute('data-theme', resolveTheme(mode));
-  // reflete o modo escolhido nos controles (menu + botão do cabeçalho)
+  // reflete o modo escolhido nos controles (menu + botão do cabeçalho + botão flutuante)
   document.querySelectorAll('.theme-opt').forEach(b=>b.classList.toggle('active', b.dataset.mode===mode));
-  const tb=document.getElementById('themeBtn');
-  if(tb){ const ic={light:'☀️',dark:'🌙',system:'🖥️'}, lb={light:'Claro',dark:'Escuro',system:'Padrão do sistema'};
-    tb.textContent=ic[mode]||'🖥️'; tb.title='Tema: '+(lb[mode]||'Sistema')+' — clique para alternar'; tb.setAttribute('aria-label','Tema: '+(lb[mode]||'Sistema')); }
+  const ic={light:'☀️',dark:'🌙',system:'🖥️'}, lb={light:'Claro',dark:'Escuro',system:'Padrão do sistema'};
+  const el=document.getElementById('themeBtn');
+  if(el){
+    el.textContent=ic[mode]||'🖥️';
+    el.title='Tema: '+(lb[mode]||'Sistema')+' — clique para alternar';
+    el.setAttribute('aria-label','Alternar tema (atual: '+(lb[mode]||'Sistema')+')');
+  }
 }
 function setTheme(mode){ try{ localStorage.setItem(THEME_KEY,mode); }catch(e){} applyTheme(); }
 function cycleTheme(){ const order=['light','dark','system']; setTheme(order[(order.indexOf(getThemeMode())+1)%order.length]); }
