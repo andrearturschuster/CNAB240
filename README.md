@@ -15,11 +15,13 @@ Ferramenta web para **inspecionar, validar e editar** arquivos CNAB 240 (remessa
 - **Modo genérico FEBRABAN** para bancos sem plugin dedicado: exibe os campos pelo leiaute padrão (pagamentos e cobrança — segmentos P, Q, R, S, T, U, Y) sem aplicar regras específicas, com opção de validar pelo FEBRABAN.
 - **Segmentos "fora do manual"** são sinalizados e exibidos pelo leiaute genérico, sem validação específica.
 - **Inspeção de remessa** com validação campo a campo (tamanho de 240 bytes, numérico/data/código de barras, regras do banco) e destaque dos erros.
-- **Inspeção de retorno** com decodificação das ocorrências e status por registro (Efetivado / Aceito-Agendado / Informativo / Rejeitado) para os três bancos, com resumo por classe e valor confirmado.
+- **Inspeção de retorno** com decodificação das ocorrências e status por registro (Efetivado / Aceito-Agendado / Informativo / Rejeitado) para os quatro bancos, com resumo por classe, valor confirmado e **filtro por status** (Todos / Efetivados / Aceitos / Rejeitados / Informativos) para mostrar apenas os registros de interesse.
 - **Editor de campos:** botão **Editar** abre uma tela com todos os registros e seus campos editáveis (respeitando tamanho e tipo de cada posição), com busca, aplicação com reanálise e download do `.REM` editado.
 - **Diretório de bancos:** menu → **Bancos** abre uma janela com o nome, o **código de compensação (Compe)** e o **ISPB** das instituições, com ícone e busca por nome/código/ISPB. Os bancos com validação nativa vêm sinalizados.
 - **Ferramenta de código de barras:** decodifica código de barras (44 díg.) e linha digitável de boleto (47) e de convênio/arrecadação (48), com round-trip barras ↔ linha.
 - **Exportação de relatório em PDF** (offline, sem bibliotecas).
+- **Exportação do resumo em CSV** (offline): colunas conforme o modo (remessa — erros, atenção e "fora do manual"; retorno — status, códigos e descrições das ocorrências), respeitando o filtro de status ativo. Delimitador `;` com BOM UTF-8, abrindo direto no Excel em pt-BR.
+- **Arquivos `.REM` de exemplo por banco:** menu → **Exemplos (.REM)** carrega uma remessa de exemplo — validada a 0 erros pelo próprio inspetor — para Sicredi (748), Itaú (341), Banco do Brasil (001) e Sicoob (756), útil para conhecer a ferramenta sem um arquivo em mãos.
 - Arrastar-e-soltar arquivo, colar conteúdo e leitura via seletor de arquivo.
 
 ## Como usar
