@@ -3220,9 +3220,10 @@ function render(lines){
   //     detecta o indicador do próprio arquivo (pos. 143) para alertar divergências
   const cfg=retornoCfg();
   let fileRet=false;
-  if(cfg){
+  {
     const hdr=padded.find(r=>r.line.charAt(7)==='0');
-    if(hdr && slice(hdr.line,cfg.remRetField[0],cfg.remRetField[1])==='2') fileRet=true;
+    const rr = (cfg && cfg.remRetField) ? cfg.remRetField : [143,143]; // 143 = Código Remessa/Retorno (padrão FEBRABAN)
+    if(hdr && slice(hdr.line, rr[0], rr[1])==='2') fileRet=true;
   }
   IS_RETORNO = (VIEW==='retorno');
 
@@ -4191,13 +4192,22 @@ function setView(v){
 function setModeHint(cfg,fileRet){
   const el=document.getElementById('modeHint'); if(!el) return;
   if(!DATA || !DATA.length){ el.innerHTML=''; return; }
-  // Arquivo é RETORNO (pos. 143 = "2") mas estamos na tela de remessa → pergunta acionável
-  if(cfg && VIEW==='inspect' && fileRet && !RET_HINT_DISMISSED){
-    el.innerHTML=`<div class="bank-prompt">`
-      +`<div>↩︎ <b>Este arquivo parece ser um RETORNO</b> (Código Remessa/Retorno, posição 143 = "2"), mas você está na tela de <b>remessa</b>. `
-      +`Deseja inspecionar como retorno para decodificar as ocorrências do banco?</div>`
-      +`<div class="bp-actions"><button class="b-primary" onclick="setView('retorno')">Inspecionar como Retorno</button>`
-      +`<button class="b-ghost" onclick="dismissRetHint()">Continuar na remessa</button></div></div>`;
+  // Arquivo é RETORNO (pos. 143 = "2") mas estamos na tela de remessa → aviso acionável
+  if(VIEW==='inspect' && fileRet && !RET_HINT_DISMISSED){
+    if(cfg){
+      el.innerHTML=`<div class="bank-prompt">`
+        +`<div>↩︎ <b>Este arquivo parece ser um RETORNO</b> (Código Remessa/Retorno, posição 143 = "2"), mas você está na tela de <b>remessa</b>. `
+        +`Deseja inspecionar como retorno para decodificar as ocorrências do banco?</div>`
+        +`<div class="bp-actions"><button class="b-primary" onclick="setView('retorno')">Inspecionar como Retorno</button>`
+        +`<button class="b-ghost" onclick="dismissRetHint()">Continuar na remessa</button></div></div>`;
+    }else{
+      el.innerHTML=`<div class="bank-prompt">`
+        +`<div>↩︎ <b>Este arquivo parece ser um RETORNO</b> (Código Remessa/Retorno, posição 143 = "2"). `
+        +`Este banco não tem decodificação de ocorrências, então validá-lo como remessa gera erros indevidos (ex.: exige a posição 143 = "1"). `
+        +`Inspecione como retorno para ver os campos pelo leiaute genérico — <b>os status não são decodificados</b>.</div>`
+        +`<div class="bp-actions"><button class="b-primary" onclick="setView('retorno')">Inspecionar como Retorno</button>`
+        +`<button class="b-ghost" onclick="dismissRetHint()">Continuar na remessa</button></div></div>`;
+    }
     return;
   }
   let msg='',cls='';
